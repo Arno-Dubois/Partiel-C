@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Define Personne and their attribute
 typedef struct Personne{
     char name[25];
     int age;
@@ -10,7 +11,7 @@ typedef struct Personne{
 
 Personne *list[4];
 
-void create_four_personne(){
+void createFourPersonne(){
     Personne *allain = malloc(sizeof(Personne));
     list[0] = allain;
     allain->age = 12;
@@ -36,7 +37,7 @@ void create_four_personne(){
     carmen->size_cm = 23;
 }
 
-void show_personne() {
+void showAllPersonne() {
     for (int loopThroughPersonne = 0; loopThroughPersonne < 4; ++loopThroughPersonne) {
         printf("%s, %dans pour %dcm\n", list[loopThroughPersonne]->name, list[loopThroughPersonne]->age, list[loopThroughPersonne]->size_cm);
 
@@ -44,8 +45,8 @@ void show_personne() {
 }
 
 int main(void) {
-    create_four_personne();
-    show_personne();
+    createFourPersonne();
+    showAllPersonne();
 
     return 0;
 }

@@ -1,62 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Define Node and their data
 typedef struct node {
     int integer;
     struct node *next;
 } node;
 
+// Define head
 node *head = NULL;
 
-void prepend(int integer) {
-    node *newElem = malloc(sizeof(node));
-    newElem->integer = integer;
+void prependToNode(int integer) {
+    // Allocate memory to new element
+    node *newElement = malloc(sizeof(node));
+    
+    // Store data to new element
+    newElement->integer = integer;
+    
+    // Replace head by the new element and link the new element to the last element
     if(head != NULL) {
-        newElem->next = head;
+        newElement->next = head;
     } else {
-        newElem->next = NULL;
+        newElement->next = NULL;
     }
-    head = newElem;
+    head = newElement;
 }
 
-void show() {
-    node *loopElem = head;
-    for (int loopThroughNode = 0; loopElem != NULL; ++loopThroughNode) {
-        printf("Elem %d : %d\n", loopThroughNode, loopElem->integer);
+void showAllNode() {
+    node *loopElement = head;
+    for (int loopThroughNode = 0; loopElement != NULL; ++loopThroughNode) {
+        printf("Element %d : %d\n", loopThroughNode, loopElement->integer);
 
-        loopElem = loopElem->next;
+        loopElement = loopElement->next;
     }
 }
 
-void delete(int integer) {
-    node *searchElem = head;
-    node *searchElemPenultimate = NULL;
-    while(searchElem != NULL && searchElem->integer != integer) {
-        searchElemPenultimate = searchElem;
-        searchElem = searchElem->next;
+void deleteElement(int integer) {
+    node *searchElement = head;
+    node *searchElementPenultimate = NULL;
+    while(searchElement != NULL && searchElement->integer != integer) {
+        searchElementPenultimate = searchElement;
+        searchElement = searchElement->next;
     }
 
-    if(searchElem != NULL) {
-        if(searchElemPenultimate != NULL && searchElem->next != NULL) {
-            searchElemPenultimate->next = searchElem->next;
-        } else if(searchElemPenultimate != NULL) {
-            searchElemPenultimate->next = NULL;
-        } else if(searchElemPenultimate == NULL && searchElem->next == NULL){
+    if(searchElement != NULL) {
+        // If there is element before and after element to deleteElement, link them together
+        if(searchElementPenultimate != NULL && searchElement->next != NULL) {
+            searchElementPenultimate->next = searchElement->next;
+        
+        // If there is no element before remove the link
+        } else if(searchElementPenultimate != NULL) {
+            searchElementPenultimate->next = NULL;
+            
+        // If there is no more element nullify the head
+        } else if(searchElementPenultimate == NULL && searchElement->next == NULL){
             head = NULL;
+            
+        // If the element to deleteElement is the head, change the head
         } else {
-            head = searchElem->next;
+            head = searchElement->next;
         }
-        free(searchElem);
+        free(searchElement);
     }
 }
 
 int main(void) {
-    prepend(2);
-    prepend(12);
-    prepend(24);
-    show();
-    delete(2);
-    show();
+    prependToNode(2);
+    prependToNode(12);
+    prependToNode(24);
+    showAllNode();
+    deleteElement(2);
+    showAllNode();
 
     return 0;
 }

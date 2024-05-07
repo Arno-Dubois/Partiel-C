@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Define Car and their data, for others comments see "Exercice 3.c"
 typedef struct car {
     char brand[25];
     char model[25];
@@ -11,7 +12,7 @@ typedef struct car {
 
 car *head = NULL;
 
-void add(char brand[], char model[], int launchYear) {
+void addCar(char brand[], char model[], int launchYear) {
     car *newCar = malloc(sizeof(car));
     strcpy(newCar->brand, brand);
     strcpy(newCar->model, model);
@@ -24,7 +25,7 @@ void add(char brand[], char model[], int launchYear) {
     head = newCar;
 }
 
-void show() {
+void showAllCar() {
     car *loopCar = head;
     for (int loopThroughCar = 0; loopCar != NULL; ++loopThroughCar) {
         printf("La %s, modele %s est sortie en %d\n", loopCar->brand, loopCar->model, loopCar->launchYear);
@@ -33,7 +34,7 @@ void show() {
     }
 }
 
-void delete(char model[]) {
+void deleteCar(char model[]) {
     car *searchCar = head;
     car *searchCarPenultimate = NULL;
     while(searchCar != NULL && strcmp(searchCar->model, model) != 0) {
@@ -56,12 +57,12 @@ void delete(char model[]) {
 }
 
 int main(void) {
-    add("Toyota", "Cactus", 2002);
-    add("Dacia", "Sandero", 2022);
-    add("Porch", "GTI", 2016);
-    show();
-    delete("Cactuseu");
-    show();
+    addCar("Toyota", "Cactus", 2002);
+    addCar("Dacia", "Sandero", 2022);
+    addCar("Porch", "GTI", 2016);
+    showAllCar();
+    deleteCar("Cactuseu");
+    showAllCar();
 
     return 0;
 }
